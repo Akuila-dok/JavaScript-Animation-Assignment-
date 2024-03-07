@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notification Bell</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+  }
+
+  .notification-container {
+    position: relative;
+  }
+
+  .notification-bell {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    position: relative;
+    animation: moveAndExpand 3s forwards linear;
+    background: linear-gradient(to right, purple, red);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 14px;
+  }
+
+  .notification-icon {
+    font-size: 30px;
+  }
+
+  .active {
+    width: 240px;
+    height:  60px;
+    border-radius: 30px;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: calc(80%); /* Position the dropdown below the bell */
+    left: 80px; /* Align the dropdown with the left edge of the bell */
+    width: 100%; /* Make the dropdown width same as the bell */
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: -1;
+    text-align: center;
+    height: 160px;
+    border-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .dropdown-content.show {
+    display: block;
+  }
+
+  .dropdown-content div {
+    padding: 12px 16px;
+    cursor: pointer;
+  }
+
+  .dropdown-content div:hover {
+    background-color: #f1f1f1;
+  }
+
+  @keyframes moveAndExpand {
+    0% {
+      left: 0;
+    }
+    100% {
+      left: calc(100% - 160px);
+    }
+  }
+
+</style>
+</head>
+<body>
+
+    <div class="notification-container">
+        <div class="notification-bell" id="notificationBell">
+          <i class="notification-icon fas fa-bell"></i>
+        </div>
+        <div class="dropdown-content" id="dropdownContent">
+        <br>
+        <div><i class="fas fa-user"></i> DOK MIYOM CHOL</div>
+        <div><i class="fas fa-user"></i>SCT221-0448/2021</div>
+        </div>
+      </div>
+
+<audio id="notificationSound">
+  <source src="/SoundAlarm.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+ // JavaScript to update notification count and activate the bell
+
+// Get the notification bell and dropdown content elements
+const notificationBell = document.getElementById('notificationBell');
+const dropdownContent = document.getElementById('dropdownContent');
+const notificationSound = document.getElementById('notificationSound');
+
+// Function to update notification count and activate the bell
+function updateNotification() {
+  notificationBell.classList.add('active');
+  notificationBell.innerHTML = '<i class="notification-icon fas fa-bell"></i> You have 2 notifications';
+  notificationSound.play(); // Play the sound
+
+  // Delay the appearance of dropdown message by 5 seconds
+  setTimeout(function() {
+    dropdownContent.classList.add('show');
+  }, 1000);
+}
+
+// Delay execution by 3 seconds
+setTimeout(function() {
+  // Call the updateNotification function after 3 seconds
+  updateNotification();
+
+  // Delay execution by additional 1 second (total 4 seconds)
+  setTimeout(function() {
+    notificationBell.innerHTML = '<i class="notification-icon fas fa-bell"></i> You have 2 notifications';
+  }, 1000);
+}, 3000);
+
+// Example: reload the page every 8 seconds
+setInterval(() => {
+  location.reload();
+}, 8000);
+
+</script>
+
+</body>
+</html>
